@@ -1,29 +1,39 @@
 package io.stark.locale.ui.main
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import io.stark.locale.R
+import io.stark.locale.common.BindingFragment
+import io.stark.locale.databinding.MainFragmentBinding
+import io.stark.locale.utils.LocaleVariants
+import io.stark.localektx.LocaleKtx
+import io.stark.localektx.utils.RecreateHelper
+import org.koin.android.ext.android.inject
+import java.util.*
 
-class MainFragment : Fragment() {
+class MainFragment : BindingFragment<MainFragmentBinding>() {
 
-    companion object {
-        fun newInstance() = MainFragment()
+    private val localeKtx: LocaleKtx by inject()
+
+    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): MainFragmentBinding {
+        return MainFragmentBinding.inflate(inflater, container, false)
     }
 
-    private lateinit var viewModel: MainViewModel
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+    override fun setupViews() = with(binding) {
+        english.setOnClickListener {
+            onChangeLocale(LocaleVariants.English)
+        }
+        russian.setOnClickListener {
+            onChangeLocale(LocaleVariants.Russian)
+        }
+        turkish.setOnClickListener {
+            onChangeLocale(LocaleVariants.Turkish)
+        }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+    private fun onChangeLocale(locale: Locale) {
+        if (localeKtx.locale != locale) {
+            localeKtx.setLocale(locale = locale, keepCounty = false)
+            RecreateHelper.recreate(activity)
+        }
     }
-
 }

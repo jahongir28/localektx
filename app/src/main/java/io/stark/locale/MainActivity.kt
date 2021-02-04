@@ -2,11 +2,17 @@ package io.stark.locale
 
 import android.content.Context
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import io.stark.locale.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import io.stark.locale.databinding.ActivityMainBinding
+import io.stark.localektx.LocaleKtx
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
+    private val localeKtx: LocaleKtx by inject()
 
     override fun attachBaseContext(base: Context) {
         super.attachBaseContext(base)
@@ -14,17 +20,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun applyOverrideConfiguration(overrideConfiguration: Configuration) {
-        //val newConfig = localeKtx.wrapConfiguration(overrideConfiguration)
-        super.applyOverrideConfiguration(overrideConfiguration)
+        val newConfig = localeKtx.wrapConfiguration(overrideConfiguration)
+        super.applyOverrideConfiguration(newConfig)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, MainFragment.newInstance())
-                    .commitNow()
-        }
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 }

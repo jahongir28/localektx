@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_title">Ana Sayfa</string>
+    <string name="english">Ingilizce</string>
+    <string name="russian">Rusça</string>
+    <string name="turkish">Türkçe</string>
+</resources>
