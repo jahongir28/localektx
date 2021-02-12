@@ -42,7 +42,7 @@ android {
 
 dependencies {
 
-    implementation project(path: ':localektx')
+    //implementation project(path: ':localektx')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$rootProject.kotlinVersion"
     implementation "androidx.core:core-ktx:$rootProject.ktxVersion"
@@ -61,4 +61,6 @@ dependencies {
     implementation "org.koin:koin-android:$rootProject.koinVersion"
     implementation "org.koin:koin-androidx-viewmodel:$rootProject.koinVersion"
     implementation "org.koin:koin-androidx-ext:$rootProject.koinVersion"
+
+    implementation 'com.github.jahongir28:localektx:1.0.0'
 }

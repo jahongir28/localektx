@@ -14,7 +14,10 @@ class MainFragment : BindingFragment<MainFragmentBinding>() {
 
     private val localeKtx: LocaleKtx by inject()
 
-    override fun createBinding(inflater: LayoutInflater, container: ViewGroup?): MainFragmentBinding {
+    override fun createBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): MainFragmentBinding {
         return MainFragmentBinding.inflate(inflater, container, false)
     }
 
@@ -35,5 +38,9 @@ class MainFragment : BindingFragment<MainFragmentBinding>() {
             localeKtx.setLocale(locale = locale, keepCounty = false)
             RecreateHelper.recreate(activity)
         }
+    }
+
+    fun changeLocale(locale: Locale) {
+        localeKtx.setLocale(locale = locale)
     }
 }
